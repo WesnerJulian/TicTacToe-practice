@@ -59,7 +59,7 @@ char runGame() {
     char player = 'X';
 
     for (int moves = 0; moves < 9;) {
-        printf("\nEingabe: ");
+        printf("\nInput: ");
 
         char buffer[4];
         fgets(buffer, 4, stdin);
@@ -68,7 +68,7 @@ char runGame() {
         row = buffer[1] - 49;
 
         if (fields[row][column] != 0) {
-            printf("\nBereits belegt!\n");
+            printf("\nAlready taken!\n");
             continue;
         }
 
@@ -77,7 +77,7 @@ char runGame() {
 
         char winner = getWinner(fields);
         if (winner != 0) {
-            printf("\nGewinner: %c\n", winner);
+            printf("\nWinner: %c\n", winner);
             return winner;
         }
 
@@ -89,21 +89,21 @@ char runGame() {
         moves++;
     }
 
-    printf("\nUnentschieden!\n");
+    printf("\nDraw!\n");
     return 0;
 }
 
 void printAdvantage(char leader, unsigned int advantage) {
-    printf("\n%c führt mit %u ", leader, advantage);
+    printf("\n%c is leading with %u ", leader, advantage);
     if (advantage == 1) {
-        printf("Punkt.\n");
+        printf("point.\n");
     } else {
-        printf("Punkten.\n");
+        printf("points.\n");
     }
 }
 
 int main() {
-    printf("Tic Tac Toe 1.2\n");
+    printf("Tic Tac Toe 2.0\n");
 
     unsigned int winsX = 0, winsO = 0, draws = 0;
 
@@ -121,17 +121,17 @@ int main() {
                 break;
         }
 
-        printf("\n-= Gewinner gesamt =-\nX: %u\nO: %u\nUnentschieden: %u\n", winsX, winsO, draws);
+        printf("\n-= Total wins =-\nX: %u\nO: %u\nDraws: %u\n", winsX, winsO, draws);
 
         if (winsX > winsO) {
             printAdvantage('X', winsX - winsO);
         } else if (winsX < winsO) {
             printAdvantage('O', winsO - winsX);
         } else {
-            printf("\nGleichstand!\n");
+            printf("\nTie!\n");
         }
 
-        printf("\nNeues Spiel? [Y/N] ");
+        printf("\nNew game? [Y/N] ");
         
         char buffer[3];
         fgets(buffer, 3, stdin);
@@ -139,5 +139,5 @@ int main() {
         keepPlaying = buffer[0] == 'y' || buffer[0] == 'Y';
     } while (keepPlaying);
 
-    printf("Danke fürs Spielen!\n");
+    printf("Thanks for playing!\n");
 }
