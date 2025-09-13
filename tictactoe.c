@@ -93,6 +93,15 @@ char runGame() {
     return 0;
 }
 
+void printAdvantage(char leader, unsigned int advantage) {
+    printf("\n%c führt mit %u ", leader, advantage);
+    if (advantage == 1) {
+        printf("Punkt.\n");
+    } else {
+        printf("Punkten.\n");
+    }
+}
+
 int main() {
     printf("Tic Tac Toe 1.2\n");
 
@@ -111,7 +120,16 @@ int main() {
                 draws++;
                 break;
         }
-        printf("\n-= Gewinner gesamt =-\nX: %d\nO: %d\nUnentschieden: %d\n", winsX, winsO, draws);
+
+        printf("\n-= Gewinner gesamt =-\nX: %u\nO: %u\nUnentschieden: %u\n", winsX, winsO, draws);
+
+        if (winsX > winsO) {
+            printAdvantage('X', winsX - winsO);
+        } else if (winsX < winsO) {
+            printAdvantage('O', winsO - winsX);
+        } else {
+            printf("\nGleichstand!\n");
+        }
 
         printf("\nNeues Spiel? [Y/N] ");
         
