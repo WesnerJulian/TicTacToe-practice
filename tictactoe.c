@@ -139,5 +139,13 @@ int main() {
         keepPlaying = buffer[0] != 'n' && buffer[0] != 'N';
     } while (keepPlaying);
 
+    if (winsX > winsO) {
+        printf("\nX wins! Congratulations!\n");
+    } else if (winsX < winsO) {
+        printf("\nO wins! Congratulations!\n");
+    } else {
+        printf("\nTie!\n");
+    }
+
     printf("\nThanks for playing!\n");
 }
