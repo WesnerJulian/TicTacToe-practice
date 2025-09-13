@@ -59,7 +59,9 @@ char runGame() {
     char player = 'X';
 
     for (int moves = 0; moves < 9;) {
-        printf("\nInput: ");
+        printf("\nCurrent player: %c\n", player);
+
+        printf("Input: ");
 
         char buffer[4];
         fgets(buffer, 4, stdin);
