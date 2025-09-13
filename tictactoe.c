@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdbool.h>
 
-void render(char *f) {
+void render(char f[3][3]) {
     printf("\n");
     printf("    A   B   C  \n");
     printf("  .-----------.\n");
@@ -9,11 +9,11 @@ void render(char *f) {
     for (int row = 0; row < 3; row++) {
         printf("%d |", row + 1);
 
-        for (int col = row * 3; col < (row + 1) * 3; col++) {
-            if (f[col] == 0) {
+        for (int col = 0; col < 3; col++) {
+            if (f[row][col] == 0) {
                 printf("   |");
             } else {
-                printf(" %c |", f[col]);
+                printf(" %c |", f[row][col]);
             }
         }
 
@@ -26,26 +26,31 @@ void render(char *f) {
     }
 }
 
-char getWinner(char *f) {
+char getWinner(char f[3][3]) {
     for (int i = 0; i < 3; i++) {
-        if (f[i * 3] == f[i * 3 + 1] && f[i * 3 + 1] == f[i * 3 + 2] && f[i * 3] != 0) {
-            return f[i * 3];
+        if (f[i][0] == f[i][1] && f[i][1] == f[i][2] && f[i][0] != 0) {
+            return f[i][0];
         }        
-        if (f[i] == f[i + 3] && f[i + 3] == f[i + 6] && f[i] != 0) {
-            return f[i];
+        if (f[0][i] == f[1][i] && f[1][i] == f[2][i] && f[0][i] != 0) {
+            return f[0][i];
         }
     }
-    for (int i = 0; i < 2; i++) {
-        if (f[i * 2] == f[4] && f[4] == f[8 - i * 2] && f[4] != 0) {
-            return f[4];
-        }
+    if (f[0][0] == f[1][1] && f[1][1] == f[2][2] && f[0][0] != 0) {
+        return f[0][0];
+    }
+    if (f[0][2] == f[1][1] && f[1][1] == f[2][0] && f[0][2] != 0) {
+        return f[0][2];
     }
 
     return 0;
 }
 
 void runGame() {
-    char fields[9] = { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+    char fields[3][3] = {
+        { 0, 0, 0 },
+        { 0, 0, 0 },
+        { 0, 0, 0 }
+    }; 
 
     render(fields);
 
@@ -62,12 +67,12 @@ void runGame() {
         column = buffer[0] - 65;
         row = buffer[1] - 49;
 
-        if (fields[row * 3 + column] != 0) {
+        if (fields[row][column] != 0) {
             printf("\nBereits belegt!\n");
             continue;
         }
 
-        fields[row * 3 + column] = player;
+        fields[row][column] = player;
         render(fields);
 
         char winner = getWinner(fields);
@@ -87,7 +92,7 @@ void runGame() {
 }
 
 int main() {
-    printf("Tic Tac Toe 1.0\n");
+    printf("Tic Tac Toe 1.1\n");
 
 
     bool keepPlaying;
