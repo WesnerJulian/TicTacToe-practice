@@ -131,13 +131,13 @@ int main() {
             printf("\nTie!\n");
         }
 
-        printf("\nNew game? [Y/N] ");
+        printf("\nNew game? [Y/n] ");
         
         char buffer[3];
         fgets(buffer, 3, stdin);
 
-        keepPlaying = buffer[0] == 'y' || buffer[0] == 'Y';
+        keepPlaying = buffer[0] != 'n' && buffer[0] != 'N';
     } while (keepPlaying);
 
-    printf("Thanks for playing!\n");
+    printf("\nThanks for playing!\n");
 }
